@@ -18,6 +18,7 @@ public class DataServicesPage extends AbstractBasePage {
     public static final By BROWSE_INSTANCES_BUTTON = By.id("browseInstancesButton");
     public static final By ADD_NEW_INSTANCE_BUTTON = By.id("addNewInstanceButton");
     public static final By ENTITY_SPAN = By.id("select2-chosen-2");
+    public static final By FIELD_TYPE_DROPDOWN = By.id("new-field-type");
 
     public static final String HOME_PATH = "/module/server/home#";
 
@@ -39,6 +40,27 @@ public class DataServicesPage extends AbstractBasePage {
         clickWhenVisible(SAVE_ENTITY_BUTTON);
         waitForElement(BROWSE_INSTANCES_BUTTON);
         return getText(ENTITY_SPAN);
+    }
+
+    public void editEntity(String entityName) throws InterruptedException {
+        clickWhenVisible(DATA_SERVICES_BUTTON);
+        clickWhenVisible(SCHEMA_EDITOR_BUTTON);
+        clickWhenVisible(By.xpath("//div[@id='s2id_selectEntity']/a"));
+        clickWhenVisible(By.xpath(String.format("//div[@class='select2-result-label']/div/div/strong[text() = '%s']", entityName)));
+    }
+
+    public void addNewField(String fieldName) throws InterruptedException {
+        setTextToFieldNoEnter(By.xpath("//div[@id='new-field-displayName']/input"), fieldName);
+        setTextToFieldNoEnter(By.xpath("//div[@id='new-field-name']/input"), fieldName);
+        clickWhenVisible(FIELD_TYPE_DROPDOWN);
+        clickWhenVisible(By.xpath("//div[@class='select2-result-label']/div/div/strong[text() = 'Boolean']"));
+        clickWhenVisible(By.xpath("//a[@ng-click='createField()']"));
+        clickWhenVisible(By.xpath("//button[@ng-click='saveChanges()']"));
+        wait(20000);
+    }
+
+    public void addNewLookup() throws InterruptedException {
+        clickWhenVisible(By.xpath("//button[@ng-click='setAvailableFields()']"));
     }
 
     /**

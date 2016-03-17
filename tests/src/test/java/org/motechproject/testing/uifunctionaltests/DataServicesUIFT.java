@@ -11,6 +11,8 @@ import org.motechproject.uitest.page.DataServicesPage;
 public class DataServicesUIFT extends TestBase {
 
     public static final String ENTITY_NAME = "newEntity";
+    public static final String EMAIL_RECORD_ENTITY = "EmailRecord";
+    public static final String NEW_FIELD_NAME = "fieldName";
 
     private DataServicesPage dataServicesPage;
 
@@ -31,5 +33,12 @@ public class DataServicesUIFT extends TestBase {
         assertEquals(ENTITY_NAME, dataServicesPage.createNewEntity(ENTITY_NAME));
         dataServicesPage.goToPage();
         dataServicesPage.goToEntityTable(ENTITY_NAME);
+    }
+
+    @Test
+    public void editEntityTest() throws InterruptedException {
+        dataServicesPage.editEntity(EMAIL_RECORD_ENTITY);
+        dataServicesPage.addNewField(NEW_FIELD_NAME);
+        //dataServicesPage.addNewLookup();
     }
 }
