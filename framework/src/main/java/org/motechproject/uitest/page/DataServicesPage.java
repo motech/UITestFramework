@@ -55,12 +55,15 @@ public class DataServicesPage extends AbstractBasePage {
         clickWhenVisible(FIELD_TYPE_DROPDOWN);
         clickWhenVisible(By.xpath("//div[@class='select2-result-label']/div/div/strong[text() = 'Boolean']"));
         clickWhenVisible(By.xpath("//a[@ng-click='createField()']"));
+        waitForElementToBeEnabled(By.xpath("//button[@ng-click='saveChanges()']"));
         clickWhenVisible(By.xpath("//button[@ng-click='saveChanges()']"));
-        wait(20000);
+        waitForElementToBeDisabled(By.xpath("//button[@ng-click='saveChanges()']"));
     }
 
     public void addNewLookup() throws InterruptedException {
         clickWhenVisible(By.xpath("//button[@ng-click='setAvailableFields()']"));
+        clickWhenVisible(By.xpath("//button[@ng-click='addNewIndex()']"));
+        clickWhenVisible(By.xpath("//div[@class='modal-footer']/button[text()='Close']"));
     }
 
     /**
