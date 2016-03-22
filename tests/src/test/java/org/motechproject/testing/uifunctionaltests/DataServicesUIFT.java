@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.motechproject.uitest.TestBase;
 import org.motechproject.uitest.page.DataServicesPage;
 
@@ -37,8 +39,9 @@ public class DataServicesUIFT extends TestBase {
 
     @Test
     public void editEntityTest() throws InterruptedException {
-        dataServicesPage.editEntity(EMAIL_RECORD_ENTITY);
-        dataServicesPage.addNewField(NEW_FIELD_NAME);
-        //dataServicesPage.addNewLookup();
+        dataServicesPage.goToEditEntity(EMAIL_RECORD_ENTITY);
+        dataServicesPage.addNewBooleanField(NEW_FIELD_NAME);
+        dataServicesPage.goToEntityTable(EMAIL_RECORD_ENTITY);
+        assertTrue(dataServicesPage.checkFieldExists(NEW_FIELD_NAME));
     }
 }
