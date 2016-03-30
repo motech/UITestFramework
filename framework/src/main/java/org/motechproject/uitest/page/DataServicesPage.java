@@ -2,7 +2,6 @@ package org.motechproject.uitest.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import java.util.Objects;
 
@@ -13,23 +12,22 @@ import java.util.Objects;
 
 public class DataServicesPage extends AbstractBasePage {
 
-    public static final By ENTITY_NAME_FIELD = By.name("inputEntityName");
-    public static final By NEW_ENTITY_BUTTON = By.id("newEntityButton");
-    public static final By SAVE_ENTITY_BUTTON = By.id("saveNewEntityButton");
-    public static final By DATA_SERVICES_BUTTON = By.id("modulelink_data-services");
-    public static final By SCHEMA_EDITOR_BUTTON = By.id("mdsTab_schemaEditor");
-    public static final By BROWSE_INSTANCES_BUTTON = By.id("browseInstancesButton");
-    public static final By ENTITY_SPAN = By.id("select2-chosen-2");
-    public static final By FIELD_TYPE_DROPDOWN = By.id("new-field-type");
-    public static final By FIELD_DISPLAY_NAME = By.xpath("//div[@id='new-field-displayName']/input");
-    public static final By FIELD_NAME = By.xpath("//div[@id='new-field-name']/input");
-    public static final By FIELD_TYPE_BOOLEAN = By.xpath("//div[@class='select2-result-label']/div/div/strong[text() = 'Boolean']");
-    public static final By CREATE_FIELD_BUTTON = By.xpath("//a[@ng-click='createField()']");
-    public static final By SAVE_CHANGES_BUTTON = By.xpath("//button[@ng-click='saveChanges()']");
-    public static final By ENTITIES_DROPDOWN = By.xpath("//div[@id='s2id_selectEntity']/a");
-    public static final By BACK_TO_ENTITY_LIST = By.xpath("//button[@ng-click='backToEntityList()']");
+    private static final By ENTITY_NAME_FIELD = By.name("inputEntityName");
+    private static final By NEW_ENTITY_BUTTON = By.id("newEntityButton");
+    private static final By SAVE_ENTITY_BUTTON = By.id("saveNewEntityButton");
+    private static final By DATA_SERVICES_BUTTON = By.id("modulelink_data-services");
+    private static final By SCHEMA_EDITOR_BUTTON = By.id("mdsTab_schemaEditor");
+    private static final By BROWSE_INSTANCES_BUTTON = By.id("browseInstancesButton");
+    private static final By ENTITY_SPAN = By.id("select2-chosen-2");
+    private static final By FIELD_TYPE_DROPDOWN = By.id("new-field-type");
+    private static final By FIELD_DISPLAY_NAME = By.id("new-field-displayName-input");
+    private static final By FIELD_NAME = By.id("new-field-name-input");
+    private static final By FIELD_TYPE_BOOLEAN = By.id("field-type-Boolean");
+    private static final By CREATE_FIELD_BUTTON = By.id("add-new-field");
+    private static final By SAVE_CHANGES_BUTTON = By.id("save-changes-button");
+    private static final By BACK_TO_ENTITY_LIST = By.id("back-to-entity-button");
 
-    public static final String HOME_PATH = "/module/server/home#";
+    private static final String HOME_PATH = "/module/server/home#";
 
     public DataServicesPage(WebDriver driver) {
         super(driver);
@@ -57,17 +55,15 @@ public class DataServicesPage extends AbstractBasePage {
      */
     public void goToEditEntity(String entityName) throws InterruptedException {
         clickWhenVisible(DATA_SERVICES_BUTTON);
-        clickWhenVisible(SCHEMA_EDITOR_BUTTON);
-        clickWhenVisible(ENTITIES_DROPDOWN);
-        clickWhenVisible(By.xpath(String.format("//div[@class='select2-result-label']/div/div/strong[text() = '%s']", entityName)));
+        clickWhenVisible(By.id(String.format("edit_%s", entityName)));
     }
 
     /**
      * Method adds new Boolean field to the entity
      * @param fieldName name of the field we want to add
      */
-    public void addNewBooleanField(String fieldName) throws InterruptedException {
-        setTextToFieldNoEnter(FIELD_DISPLAY_NAME, fieldName);
+    public void addNewBooleanField(String fielldDisplayName, String fieldName) throws InterruptedException {
+        setTextToFieldNoEnter(FIELD_DISPLAY_NAME, fielldDisplayName);
         setTextToFieldNoEnter(FIELD_NAME, fieldName);
         clickWhenVisible(FIELD_TYPE_DROPDOWN);
         clickWhenVisible(FIELD_TYPE_BOOLEAN);
@@ -83,7 +79,7 @@ public class DataServicesPage extends AbstractBasePage {
      * @return returns true if that field exists or false otherwise
      */
     public boolean checkFieldExists(String fieldName) throws InterruptedException {
-        return Objects.nonNull(findElement(By.xpath(String.format("//th[@title='%s']", fieldName))));
+        return Objects.nonNull(findElement(By.id(String.format("instancesTable_%s", fieldName))));
     }
 
     /**
@@ -92,7 +88,8 @@ public class DataServicesPage extends AbstractBasePage {
      */
     public void goToEntityTable(String entityName) throws InterruptedException {
         clickWhenVisible(DATA_SERVICES_BUTTON);
-        clickWhenVisible(By.xpath(String.format("//a[@id='entity_%s']/div", entityName)));
+        waitForElement(By.id(String.format("entity_%s", entityName)));
+        clickWhenVisible(By.id(String.format("entity_%s", entityName)));
         waitForElement(BACK_TO_ENTITY_LIST);
     }
 

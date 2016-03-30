@@ -12,9 +12,10 @@ import org.motechproject.uitest.page.DataServicesPage;
 
 public class DataServicesUIFT extends TestBase {
 
-    public static final String ENTITY_NAME = "newEntity";
-    public static final String EMAIL_RECORD_ENTITY = "EmailRecord";
-    public static final String NEW_FIELD_NAME = "fieldName";
+    private static final String ENTITY_NAME = "newEntity";
+    private static final String EMAIL_RECORD_ENTITY = "EmailRecord";
+    private static final String NEW_FIELD_NAME = "fieldName";
+    private static final String NEW_FIELD_DISPLAY_NAME = "Field Name";
 
     private DataServicesPage dataServicesPage;
 
@@ -40,7 +41,7 @@ public class DataServicesUIFT extends TestBase {
     @Test
     public void editEntityTest() throws InterruptedException {
         dataServicesPage.goToEditEntity(EMAIL_RECORD_ENTITY);
-        dataServicesPage.addNewBooleanField(NEW_FIELD_NAME);
+        dataServicesPage.addNewBooleanField(NEW_FIELD_DISPLAY_NAME, NEW_FIELD_NAME);
         dataServicesPage.goToEntityTable(EMAIL_RECORD_ENTITY);
         assertTrue(dataServicesPage.checkFieldExists(NEW_FIELD_NAME));
     }
