@@ -1,6 +1,5 @@
 package org.motechproject.uitest.page;
 
-import org.motechproject.uitest.exception.UITestFrameworkException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -51,7 +50,7 @@ public class DataServicesPage extends AbstractBasePage {
     }
 
     /**
-     * Method that goes to schema editor page and enters entity
+     * Goes to schema editor page and enters entity
      * @param entityName name of the entity we want to edit
      */
     public void goToEditEntity(String entityName) throws InterruptedException {
@@ -60,43 +59,32 @@ public class DataServicesPage extends AbstractBasePage {
     }
 
     /**
-     * Method adds new Boolean field to the entity
-     * @param fieldName name of the field we want to add
+     * Adds new {@code boolean} field to the entity
+     * @param fieldDisplayName display name of the field to be added
+     * @param fieldName name of the field to be added
      */
-    public void addNewBooleanField(String fielldDisplayName, String fieldName) throws InterruptedException {
-        setTextToFieldNoEnter(FIELD_DISPLAY_NAME, fielldDisplayName);
+    public void addNewBooleanField(String fieldDisplayName, String fieldName) throws InterruptedException {
+        setTextToFieldNoEnter(FIELD_DISPLAY_NAME, fieldDisplayName);
         setTextToFieldNoEnter(FIELD_NAME, fieldName);
         clickWhenVisible(FIELD_TYPE_DROPDOWN);
         clickWhenVisible(FIELD_TYPE_BOOLEAN);
         clickWhenVisible(CREATE_FIELD_BUTTON);
-        try {
-            waitForElementToBeEnabled(SAVE_CHANGES_BUTTON);
-        } catch (Exception e) {
-            throw new UITestFrameworkException("Wait too long for enable button", e);
-        }
-        try {
-            clickWhenVisible(SAVE_CHANGES_BUTTON);
-        } catch (Exception e) {
-            throw new UITestFrameworkException("Cannot click button", e);
-        }
-        try {
-            waitForElementToBeDisabled(SAVE_CHANGES_BUTTON);
-        } catch (Exception e) {
-            throw new UITestFrameworkException("Wait too long for disable button", e);
-        }
+        waitForElementToBeEnabled(SAVE_CHANGES_BUTTON);
+        clickWhenVisible(SAVE_CHANGES_BUTTON);
+        waitForElementToBeDisabled(SAVE_CHANGES_BUTTON);
     }
 
     /**
-     * Method checks if field with given name exist in table
+     * Checks if field with given name exist in table
      * @param fieldName name of the field
-     * @return returns true if that field exists or false otherwise
+     * @return true if that field exists or false otherwise
      */
     public boolean checkFieldExists(String fieldName) throws InterruptedException {
         return Objects.nonNull(findElement(By.id(String.format("instancesTable_%s", fieldName))));
     }
 
     /**
-     * Method that goes to data services page and enters entity table.
+     * Goes to data services page and enters entity table.
      * @param entityName name of entity table that we want to enter
      */
     public void goToEntityTable(String entityName) throws InterruptedException {
