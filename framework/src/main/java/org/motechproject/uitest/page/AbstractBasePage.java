@@ -22,7 +22,7 @@ import java.util.List;
  */
 public abstract class AbstractBasePage implements Page {
 
-    public static final int MAX_WAIT_SECONDS = 300;
+    public static final int MAX_WAIT_SECONDS = 60;
     public static final int TEN_SECONDS = 10000;
     public static final int HALF_SECOND = 500;
 

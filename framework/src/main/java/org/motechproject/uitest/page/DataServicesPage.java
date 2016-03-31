@@ -68,9 +68,21 @@ public class DataServicesPage extends AbstractBasePage {
         clickWhenVisible(FIELD_TYPE_DROPDOWN);
         clickWhenVisible(FIELD_TYPE_BOOLEAN);
         clickWhenVisible(CREATE_FIELD_BUTTON);
-        waitForElementToBeEnabled(SAVE_CHANGES_BUTTON);
-        clickWhenVisible(SAVE_CHANGES_BUTTON);
-        waitForElementToBeDisabled(SAVE_CHANGES_BUTTON);
+        try {
+            waitForElementToBeEnabled(SAVE_CHANGES_BUTTON);
+        } catch (Exception e) {
+            throw new RuntimeException("Wait too long for enable button", e);
+        }
+        try {
+            clickWhenVisible(SAVE_CHANGES_BUTTON);
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot click button", e);
+        }
+        try {
+            waitForElementToBeDisabled(SAVE_CHANGES_BUTTON);
+        } catch (Exception e) {
+            throw new RuntimeException("Wait too long for disable button", e);
+        }
     }
 
     /**
