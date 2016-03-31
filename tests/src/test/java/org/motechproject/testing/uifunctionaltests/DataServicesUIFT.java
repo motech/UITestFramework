@@ -38,6 +38,7 @@ public class DataServicesUIFT extends TestBase {
         dataServicesPage.goToEntityTable(ENTITY_NAME);
     }
 
+    @Test
     public void editEntityTest() throws InterruptedException {
         dataServicesPage.goToEditEntity(EMAIL_RECORD_ENTITY);
         dataServicesPage.addNewBooleanField(NEW_FIELD_DISPLAY_NAME, NEW_FIELD_NAME);
