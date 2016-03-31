@@ -29,8 +29,7 @@ public class DataServicesUIFT extends TestBase {
     public void cleanUp() throws InterruptedException {
         logout();
     }
-
-    @Test
+    
     public void newEntityTest () throws Exception {
         dataServicesPage.goToPage();
         assertEquals(ENTITY_NAME, dataServicesPage.createNewEntity(ENTITY_NAME));
