@@ -1,5 +1,6 @@
 package org.motechproject.uitest.page;
 
+import org.motechproject.uitest.exception.UITestFrameworkException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -71,17 +72,17 @@ public class DataServicesPage extends AbstractBasePage {
         try {
             waitForElementToBeEnabled(SAVE_CHANGES_BUTTON);
         } catch (Exception e) {
-            throw new RuntimeException("Wait too long for enable button", e);
+            throw new UITestFrameworkException("Wait too long for enable button", e);
         }
         try {
             clickWhenVisible(SAVE_CHANGES_BUTTON);
         } catch (Exception e) {
-            throw new RuntimeException("Cannot click button", e);
+            throw new UITestFrameworkException("Cannot click button", e);
         }
         try {
             waitForElementToBeDisabled(SAVE_CHANGES_BUTTON);
         } catch (Exception e) {
-            throw new RuntimeException("Wait too long for disable button", e);
+            throw new UITestFrameworkException("Wait too long for disable button", e);
         }
     }
 
