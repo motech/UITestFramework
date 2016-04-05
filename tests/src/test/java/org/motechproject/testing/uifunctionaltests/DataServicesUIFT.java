@@ -37,8 +37,7 @@ public class DataServicesUIFT extends TestBase {
         dataServicesPage.goToEntityTable(EMAIL_RECORD_ENTITY);
         assertTrue(dataServicesPage.checkFieldExists(NEW_FIELD_NAME));
     }
-
-    @Test
+    
     public void newEntityTest () throws Exception {
         dataServicesPage.goToPage();
         assertEquals(ENTITY_NAME, dataServicesPage.createNewEntity(ENTITY_NAME));
