@@ -30,19 +30,19 @@ public class DataServicesUIFT extends TestBase {
         logout();
     }
 
-
-    public void newEntityTest () throws Exception {
-        dataServicesPage.goToPage();
-        assertEquals(ENTITY_NAME, dataServicesPage.createNewEntity(ENTITY_NAME));
-        dataServicesPage.goToPage();
-        dataServicesPage.goToEntityTable(ENTITY_NAME);
-    }
-
     @Test
     public void editEntityTest() throws InterruptedException {
         dataServicesPage.goToEditEntity(EMAIL_RECORD_ENTITY);
         dataServicesPage.addNewBooleanField(NEW_FIELD_DISPLAY_NAME, NEW_FIELD_NAME);
         dataServicesPage.goToEntityTable(EMAIL_RECORD_ENTITY);
         assertTrue(dataServicesPage.checkFieldExists(NEW_FIELD_NAME));
+    }
+
+    @Test
+    public void newEntityTest () throws Exception {
+        dataServicesPage.goToPage();
+        assertEquals(ENTITY_NAME, dataServicesPage.createNewEntity(ENTITY_NAME));
+        dataServicesPage.goToPage();
+        dataServicesPage.goToEntityTable(ENTITY_NAME);
     }
 }
