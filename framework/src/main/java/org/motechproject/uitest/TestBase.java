@@ -19,6 +19,7 @@ import org.junit.runners.model.Statement;
 import org.motechproject.uitest.exception.UITestFrameworkException;
 import org.motechproject.uitest.page.GenericPage;
 import org.motechproject.uitest.page.LoginPage;
+import org.motechproject.uitest.page.MotechPage;
 import org.motechproject.uitest.page.Page;
 import org.motechproject.uitest.page.TestProperties;
 import org.motechproject.uitest.startup.StartupHelper;
@@ -72,17 +73,17 @@ public class TestBase {
 
     @Before
     public void initLoginPage() {
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(getDriver());
     }
 
-    public void login() {
+    public MotechPage login() {
         loginPage.goToPage();
         assertPage(loginPage);
-        loginPage.loginAsAdmin();
+        return loginPage.loginAsAdmin();
     }
 
-    public void logout() throws InterruptedException {
-        loginPage.logOut();
+    public LoginPage logout() throws InterruptedException {
+        return new MotechPage(driver).logOut();
     }
 
     public void goToHomePage() {

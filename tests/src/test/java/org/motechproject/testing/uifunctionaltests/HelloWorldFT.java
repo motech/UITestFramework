@@ -6,7 +6,8 @@ import org.motechproject.uitest.TestBase;
 public class HelloWorldFT extends TestBase {
 
     @Test
-    public void testHelloWorld() throws Exception {
+    public void testHelloWorld() {
+        getLogger().debug("Hello world!");
         login();
     }
 }

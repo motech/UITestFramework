@@ -2,9 +2,6 @@ package org.motechproject.uitest.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import java.lang.InterruptedException;
-import java.lang.Override;
-import java.lang.String;
 
 public class LoginPage extends AbstractBasePage {
 
@@ -23,22 +20,18 @@ public class LoginPage extends AbstractBasePage {
         adminPassword = getProperties().getPassword();
     }
 
-    public void logOut() throws InterruptedException {
-        waitForElement(By.cssSelector("span.ng-binding"));
-        clickWhenVisible(By.cssSelector("span.ng-binding"));
-        clickOn(By.xpath("//a[@href='j_spring_security_logout']"));
-    }
-
-    public void login(String user, String password) {
+    public MotechPage login(String user, String password) {
         waitForElement(USERNAME);
         setTextToFieldNoEnter(USERNAME, user);
         setTextToFieldNoEnter(PASSWORD, password);
         clickOn(LOGIN);
         waitForElement(By.cssSelector("span.ng-binding"));
+
+        return new MotechPage(getDriver());
     }
 
-    public void loginAsAdmin() {
-        login(adminUsername, adminPassword);
+    public MotechPage loginAsAdmin() {
+        return login(adminUsername, adminPassword);
     }
 
     @Override
@@ -48,6 +41,6 @@ public class LoginPage extends AbstractBasePage {
 
     @Override
     public void goToPage() {
-        getDriver().get(getMotechUrl() + LOGIN_PATH);
+        getDriver().get(getMotechUrl() + expectedUrlPath());
     }
 }

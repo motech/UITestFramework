@@ -109,6 +109,11 @@ public abstract class AbstractBasePage implements Page {
         return driver.findElements(by);
     }
 
+    @Override
+    public void goToPage() {
+        getDriver().get(getMotechUrl() + expectedUrlPath());
+    }
+
     /**
      * Real pages supply their expected URL path.
      *
@@ -165,7 +170,7 @@ public abstract class AbstractBasePage implements Page {
         return (Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery('#" + id +  "').is(':focus')");
     }
 
-    boolean hasFocus(String tag, String attr, String value) {
+    public boolean hasFocus(String tag, String attr, String value) {
         return (Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery('" + tag + "[" + attr + "=" + value + "]').is(':focus')");
     }
 
@@ -182,16 +187,8 @@ public abstract class AbstractBasePage implements Page {
     }
 
     public void clickWhenVisible(By by) throws InterruptedException {
-        Long startTime = System.currentTimeMillis();
-        while ((System.currentTimeMillis() - startTime) < TEN_SECONDS) {
-            try {
-                clickOn(by);
-                break;
-            } catch (Exception e) {
-                Thread.sleep(HALF_SECOND);
-            }
-        }
-
+        waiter.until(ExpectedConditions.visibilityOfElementLocated(by));
+        clickOn(by);
     }
 
     protected TestProperties getProperties() {
