@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.uitest.TestBase;
 import org.motechproject.uitest.page.DataServicesPage;
+import org.motechproject.uitest.page.MotechPage;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,9 +17,9 @@ public class DataServicesUIFT extends TestBase {
     private DataServicesPage dataServicesPage;
 
     @Before
-    public void initialize() {
-        dataServicesPage = new DataServicesPage(getDriver());
-        login();
+    public void initialize() throws InterruptedException {
+        MotechPage home = login();
+        dataServicesPage = home.goToDataServices();
     }
 
     @After
@@ -28,11 +29,10 @@ public class DataServicesUIFT extends TestBase {
 
     @Test
     public void newEntityTest () throws Exception {
-        dataServicesPage.goToPage();
         dataServicesPage.createNewEntity(ENTITY_NAME);
 
         assertEquals(ENTITY_NAME, dataServicesPage.getChosenEntityName());
-        dataServicesPage.goToPage();
+       
         dataServicesPage.goToEntityTable(ENTITY_NAME);
     }
 }

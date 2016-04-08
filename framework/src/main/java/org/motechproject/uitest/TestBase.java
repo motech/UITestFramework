@@ -179,9 +179,11 @@ public class TestBase {
     }
 
     public void takeScreenshot(String filename) {
+        logger.debug("Saving screenshot: {}", filename);
         File tempFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(tempFile, new File("target/screenshots/" + filename + ".png"));
+            logger.debug("Saved screenshot: {}", filename);
         } catch (IOException e) {
             throw new UITestFrameworkException("Unable to take screenshot", e);
         }

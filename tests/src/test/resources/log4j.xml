@@ -14,6 +14,10 @@
         <level value="DEBUG"/>
     </logger>
 
+    <logger name="org.motechproject.uitest">
+        <level value="DEBUG"/>
+    </logger>
+
     <root>
         <priority value="INFO" />
         <appender-ref ref="CONSOLE" />

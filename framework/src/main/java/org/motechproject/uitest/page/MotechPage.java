@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
  */
 public class MotechPage extends AbstractBasePage {
 
+    public static final By DATA_SERVICES_MENU_LINK = By.id("modulelink_data-services");
+
     public MotechPage(WebDriver driver) {
         super(driver);
     }
@@ -15,6 +17,11 @@ public class MotechPage extends AbstractBasePage {
     @Override
     public String expectedUrlPath() {
         return "/module/server/";
+    }
+
+    public DataServicesPage goToDataServices() throws InterruptedException {
+        clickWhenVisible(DATA_SERVICES_MENU_LINK);
+        return new DataServicesPage(getDriver());
     }
 
     public LoginPage logOut() throws InterruptedException {
