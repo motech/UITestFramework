@@ -14,7 +14,8 @@ public class DataServicesPage extends MotechPage {
     public static final By NEW_ENTITY_BUTTON = By.id("newEntityButton");
     public static final By SAVE_ENTITY_BUTTON = By.id("saveNewEntityButton");
 
-    public static final By SCHEMA_EDITOR_BUTTON = By.id("mdsTab_schemaEditor");
+    public static final By SCHEMA_EDITOR_TAB = By.id("mdsTab_schemaEditor");
+    public static final By DATA_BROWSER_TAB = By.id("mdsTab_dataBrowser");
     public static final By BROWSE_INSTANCES_BUTTON = By.id("browseInstancesButton");
     public static final By ADD_NEW_INSTANCE_BUTTON = By.id("addNewInstanceButton");
     public static final By ENTITY_SPAN = By.id("select2-chosen-2");
@@ -31,7 +32,8 @@ public class DataServicesPage extends MotechPage {
      * @return method returns text that appears in schema editor entity input after creating new entity, should be the same as new entity name, should be checked in tests
      */
     public DataServicesPage createNewEntity(String entityName) throws InterruptedException {
-        clickWhenVisible(SCHEMA_EDITOR_BUTTON);
+        waitUntilBlockUiIsGone();
+        clickWhenVisible(SCHEMA_EDITOR_TAB);
         clickWhenVisible(NEW_ENTITY_BUTTON);
         waitForElement(ENTITY_NAME_FIELD);
         setTextToFieldNoEnter(ENTITY_NAME_FIELD, entityName);
@@ -45,7 +47,8 @@ public class DataServicesPage extends MotechPage {
      * @param entityName name of entity table that we want to enter
      */
     public DataServicesPage goToEntityTable(String entityName) throws InterruptedException {
-        clickWhenVisible(BROWSE_INSTANCES_BUTTON);
+        clickWhenVisible(DATA_BROWSER_TAB);
+        waitUntilBlockUiIsGone();
         clickWhenVisible(By.id(String.format("entity_%s", entityName)));
         waitForElement(ADD_NEW_INSTANCE_BUTTON);
         return this;
