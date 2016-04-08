@@ -3,9 +3,10 @@ package org.motechproject.testing.uifunctionaltests;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 import org.motechproject.uitest.TestBase;
 import org.motechproject.uitest.page.DataServicesPage;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class DataServicesUIFT extends TestBase {
@@ -28,7 +29,9 @@ public class DataServicesUIFT extends TestBase {
     @Test
     public void newEntityTest () throws Exception {
         dataServicesPage.goToPage();
-        assertEquals(ENTITY_NAME, dataServicesPage.createNewEntity(ENTITY_NAME));
+        dataServicesPage.createNewEntity(ENTITY_NAME);
+
+        assertEquals(ENTITY_NAME, dataServicesPage.getChosenEntityName());
         dataServicesPage.goToPage();
         dataServicesPage.goToEntityTable(ENTITY_NAME);
     }

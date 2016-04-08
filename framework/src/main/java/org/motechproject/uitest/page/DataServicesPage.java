@@ -30,7 +30,7 @@ public class DataServicesPage extends AbstractBasePage {
      * @param entityName new entity name
      * @return method returns text that appears in schema editor entity input after creating new entity, should be the same as new entity name, should be checked in tests
      */
-    public String createNewEntity(String entityName) throws InterruptedException {
+    public DataServicesPage createNewEntity(String entityName) throws InterruptedException {
         clickWhenVisible(DATA_SERVICES_BUTTON);
         clickWhenVisible(SCHEMA_EDITOR_BUTTON);
         clickWhenVisible(NEW_ENTITY_BUTTON);
@@ -38,7 +38,7 @@ public class DataServicesPage extends AbstractBasePage {
         setTextToFieldNoEnter(ENTITY_NAME_FIELD, entityName);
         clickWhenVisible(SAVE_ENTITY_BUTTON);
         waitForElement(BROWSE_INSTANCES_BUTTON);
-        return getText(ENTITY_SPAN);
+        return this;
     }
 
     /**
@@ -49,6 +49,10 @@ public class DataServicesPage extends AbstractBasePage {
         clickWhenVisible(DATA_SERVICES_BUTTON);
         clickWhenVisible(By.id(String.format("entity_%s", entityName)));
         waitForElement(ADD_NEW_INSTANCE_BUTTON);
+    }
+
+    public String getChosenEntityName() {
+        return getText(ENTITY_SPAN);
     }
 
     @Override
