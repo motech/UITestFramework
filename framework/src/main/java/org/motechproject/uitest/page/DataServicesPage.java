@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
  * data browser, schema editor and data services settings.
  */
 
-public class DataServicesPage extends AbstractBasePage {
+public class DataServicesPage extends MotechPage {
 
     public static final By ENTITY_NAME_FIELD = By.name("inputEntityName");
     public static final By NEW_ENTITY_BUTTON = By.id("newEntityButton");
