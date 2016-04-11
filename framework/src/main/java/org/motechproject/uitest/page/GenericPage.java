@@ -16,8 +16,4 @@ public final class GenericPage extends AbstractBasePage {
     public String expectedUrlPath() {
         return getDriver().getCurrentUrl();
     }
-
-    @Override
-    public void goToPage() {
-    }
 }

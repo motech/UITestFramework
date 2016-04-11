@@ -10,22 +10,26 @@ import java.util.Objects;
  * data browser, schema editor and data services settings.
  */
 
-public class DataServicesPage extends AbstractBasePage {
+public class DataServicesPage extends MotechPage {
 
-    private static final By ENTITY_NAME_FIELD = By.name("inputEntityName");
-    private static final By NEW_ENTITY_BUTTON = By.id("newEntityButton");
-    private static final By SAVE_ENTITY_BUTTON = By.id("saveNewEntityButton");
-    private static final By DATA_SERVICES_BUTTON = By.id("modulelink_data-services");
-    private static final By SCHEMA_EDITOR_BUTTON = By.id("mdsTab_schemaEditor");
-    private static final By BROWSE_INSTANCES_BUTTON = By.id("browseInstancesButton");
-    private static final By ENTITY_SPAN = By.id("select2-chosen-2");
-    private static final By FIELD_TYPE_DROPDOWN = By.id("new-field-type");
-    private static final By FIELD_DISPLAY_NAME = By.id("new-field-displayName-input");
-    private static final By FIELD_NAME = By.id("new-field-name-input");
-    private static final By FIELD_TYPE_BOOLEAN = By.id("field-type-Boolean");
-    private static final By CREATE_FIELD_BUTTON = By.id("add-new-field");
-    private static final By SAVE_CHANGES_BUTTON = By.id("save-changes-button");
-    private static final By BACK_TO_ENTITY_LIST = By.id("back-to-entity-button");
+    public static final By ENTITY_NAME_FIELD = By.name("inputEntityName");
+    public static final By NEW_ENTITY_BUTTON = By.id("newEntityButton");
+    public static final By SAVE_ENTITY_BUTTON = By.id("saveNewEntityButton");
+
+    public static final By SCHEMA_EDITOR_TAB = By.id("mdsTab_schemaEditor");
+    public static final By DATA_BROWSER_TAB = By.id("mdsTab_dataBrowser");
+    public static final By BROWSE_INSTANCES_BUTTON = By.id("browseInstancesButton");
+    public static final By ADD_NEW_INSTANCE_BUTTON = By.id("addNewInstanceButton");
+    public static final By ENTITY_SPAN = By.id("select2-chosen-2");
+
+    public static final By DATA_SERVICES_BUTTON = By.id("modulelink_data-services");
+    public static final By FIELD_TYPE_DROPDOWN = By.id("new-field-type");
+    public static final By FIELD_DISPLAY_NAME = By.id("new-field-displayName-input");
+    public static final By FIELD_NAME = By.id("new-field-name-input");
+    public static final By FIELD_TYPE_BOOLEAN = By.id("field-type-Boolean");
+    public static final By CREATE_FIELD_BUTTON = By.id("add-new-field");
+    public static final By SAVE_CHANGES_BUTTON = By.id("save-changes-button");
+
 
     private static final String HOME_PATH = "/module/server/home#";
 
@@ -38,15 +42,15 @@ public class DataServicesPage extends AbstractBasePage {
      * @param entityName new entity name
      * @return method returns text that appears in schema editor entity input after creating new entity, should be the same as new entity name, should be checked in tests
      */
-    public String createNewEntity(String entityName) throws InterruptedException {
-        clickWhenVisible(DATA_SERVICES_BUTTON);
-        clickWhenVisible(SCHEMA_EDITOR_BUTTON);
+    public DataServicesPage createNewEntity(String entityName) throws InterruptedException {
+        waitUntilBlockUiIsGone();
+        clickWhenVisible(SCHEMA_EDITOR_TAB);
         clickWhenVisible(NEW_ENTITY_BUTTON);
         waitForElement(ENTITY_NAME_FIELD);
         setTextToFieldNoEnter(ENTITY_NAME_FIELD, entityName);
         clickWhenVisible(SAVE_ENTITY_BUTTON);
         waitForElement(BROWSE_INSTANCES_BUTTON);
-        return getText(ENTITY_SPAN);
+        return this;
     }
 
     /**
@@ -54,7 +58,8 @@ public class DataServicesPage extends AbstractBasePage {
      * @param entityName name of the entity we want to edit
      */
     public void goToEditEntity(String entityName) throws InterruptedException {
-        clickWhenVisible(DATA_SERVICES_BUTTON);
+        waitUntilBlockUiIsGone();
+        clickWhenVisible(DATA_BROWSER_TAB);
         clickWhenVisible(By.id(String.format("edit_%s", entityName)));
     }
 
@@ -69,9 +74,8 @@ public class DataServicesPage extends AbstractBasePage {
         clickWhenVisible(FIELD_TYPE_DROPDOWN);
         clickWhenVisible(FIELD_TYPE_BOOLEAN);
         clickWhenVisible(CREATE_FIELD_BUTTON);
-        waitForElementToBeEnabled(SAVE_CHANGES_BUTTON);
         clickWhenVisible(SAVE_CHANGES_BUTTON);
-        waitForElementToBeDisabled(SAVE_CHANGES_BUTTON);
+        waitUntilBlockUiIsGone();
     }
 
     /**
@@ -87,20 +91,20 @@ public class DataServicesPage extends AbstractBasePage {
      * Goes to data services page and enters entity table.
      * @param entityName name of entity table that we want to enter
      */
-    public void goToEntityTable(String entityName) throws InterruptedException {
-        clickWhenVisible(DATA_SERVICES_BUTTON);
-        waitForElement(By.id(String.format("entity_%s", entityName)));
+    public DataServicesPage goToEntityTable(String entityName) throws InterruptedException {
+        clickWhenVisible(DATA_BROWSER_TAB);
+        waitUntilBlockUiIsGone();
         clickWhenVisible(By.id(String.format("entity_%s", entityName)));
-        waitForElement(BACK_TO_ENTITY_LIST);
+        waitForElement(ADD_NEW_INSTANCE_BUTTON);
+        return this;
+    }
+
+    public String getChosenEntityName() {
+        return getText(ENTITY_SPAN);
     }
 
     @Override
     public String expectedUrlPath() {
         return HOME_PATH;
-    }
-
-    @Override
-    public void goToPage() {
-        getDriver().get(getMotechUrl() + HOME_PATH);
     }
 }
