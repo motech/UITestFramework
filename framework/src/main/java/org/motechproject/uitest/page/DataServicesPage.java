@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.util.Objects;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A class that represents data services page. Has methods which check functionality of
@@ -74,6 +76,7 @@ public class DataServicesPage extends MotechPage {
         clickWhenVisible(FIELD_TYPE_DROPDOWN);
         clickWhenVisible(FIELD_TYPE_BOOLEAN);
         clickWhenVisible(CREATE_FIELD_BUTTON);
+        Thread.currentThread().sleep(5000);
         clickWhenVisible(SAVE_CHANGES_BUTTON);
         waitUntilBlockUiIsGone();
     }
