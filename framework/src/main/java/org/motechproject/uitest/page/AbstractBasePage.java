@@ -197,6 +197,7 @@ public abstract class AbstractBasePage implements Page {
     }
 
     public void waitForElementToBeDisabled(By by) {
+        getLogger().debug("Waiting for element to be unclickable: {}", by);
         waiter.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable(by)));
     }
 

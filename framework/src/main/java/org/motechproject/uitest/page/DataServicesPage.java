@@ -57,10 +57,13 @@ public class DataServicesPage extends MotechPage {
      * Goes to schema editor page and enters entity
      * @param entityName name of the entity we want to edit
      */
-    public void goToEditEntity(String entityName) throws InterruptedException {
+    public DataServicesPage goToEditEntity(String entityName) throws InterruptedException {
         waitUntilBlockUiIsGone();
         clickWhenVisible(DATA_BROWSER_TAB);
+        waitUntilBlockUiIsGone();
         clickWhenVisible(By.id(String.format("edit_%s", entityName)));
+        waitUntilBlockUiIsGone();
+        return this;
     }
 
     /**
@@ -74,7 +77,7 @@ public class DataServicesPage extends MotechPage {
         clickWhenVisible(FIELD_TYPE_DROPDOWN);
         clickWhenVisible(FIELD_TYPE_BOOLEAN);
         clickWhenVisible(CREATE_FIELD_BUTTON);
-        Thread.currentThread().sleep(5000);
+        waitUntilBlockUiIsGone();
         clickWhenVisible(SAVE_CHANGES_BUTTON);
         waitUntilBlockUiIsGone();
     }
@@ -93,6 +96,7 @@ public class DataServicesPage extends MotechPage {
      * @param entityName name of entity table that we want to enter
      */
     public DataServicesPage goToEntityTable(String entityName) throws InterruptedException {
+        waitUntilBlockUiIsGone();
         clickWhenVisible(DATA_BROWSER_TAB);
         waitUntilBlockUiIsGone();
         clickWhenVisible(By.id(String.format("entity_%s", entityName)));
