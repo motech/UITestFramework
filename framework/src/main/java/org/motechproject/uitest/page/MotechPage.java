@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 public class MotechPage extends AbstractBasePage {
 
     public static final By DATA_SERVICES_MENU_LINK = By.id("modulelink_data-services");
+    public static final By REST_API_MENU_LINK = By.linkText("REST API");
     public static final By BLOCK_UI_DIV = By.className("blockUI");
 
     public MotechPage(WebDriver driver) {
@@ -23,6 +24,11 @@ public class MotechPage extends AbstractBasePage {
     public DataServicesPage goToDataServices() throws InterruptedException {
         clickWhenVisible(DATA_SERVICES_MENU_LINK);
         return new DataServicesPage(getDriver());
+    }
+
+    public RestApiPage goToRestApi() throws InterruptedException {
+        clickWhenVisible(REST_API_MENU_LINK);
+        return new RestApiPage(getDriver());
     }
 
     public LoginPage logOut() throws InterruptedException {
