@@ -3,6 +3,11 @@ package org.motechproject.uitest.page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * A class that represents data services page. Has methods which check functionality of
+ * data browser, schema editor and data services settings.
+ */
+
 public class RestApiPage extends MotechPage {
 
     private static final String HOME_PATH = "/module/server/home#";
@@ -15,12 +20,11 @@ public class RestApiPage extends MotechPage {
     }
 
     public void openDataServics() throws InterruptedException {
-         clickWhenVisible(DATA_SERVICES);
+        clickWhenVisible(DATA_SERVICES);
     }
 
     public String getDocumentationLink() throws InterruptedException {
-        String href = findElement(REST_API_DOCUMENTATION_LINK).getAttribute("href");
-        return href;
+        return findElement(REST_API_DOCUMENTATION_LINK).getAttribute("href");
     }
 
     @Override
