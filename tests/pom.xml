@@ -53,7 +53,7 @@
                                 </goals>
                                 <phase>pre-integration-test</phase>
                                 <configuration>
-                                    <includeArtifactIds>commcare</includeArtifactIds>
+                                    <includeScope>test</includeScope>
                                     <overWriteIfNewer>true</overWriteIfNewer>
                                     <outputDirectory>${motech.dir}/bundles</outputDirectory>
                                 </configuration>
