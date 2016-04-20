@@ -25,7 +25,7 @@
             <groupId>org.motechproject</groupId>
             <artifactId>commcare</artifactId>
             <version>${motech.version}</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.motechproject</groupId>
@@ -53,7 +53,7 @@
                                 </goals>
                                 <phase>pre-integration-test</phase>
                                 <configuration>
-                                    <includeArtifactIds>commcare, xstream</includeArtifactIds>
+                                    <includeScope>provided</includeScope>
                                     <overWriteIfNewer>true</overWriteIfNewer>
                                     <outputDirectory>${motech.dir}/bundles</outputDirectory>
                                 </configuration>
