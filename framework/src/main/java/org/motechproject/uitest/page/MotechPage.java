@@ -2,15 +2,29 @@ package org.motechproject.uitest.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import static java.lang.Thread.sleep;
 
 /**
  * A page in the MOTECH UI - with menu on the left and the top header.
  */
 public class MotechPage extends AbstractBasePage {
 
-    public static final By DATA_SERVICES_MENU_LINK = By.id("modulelink_data-services");
+    /**TOP MENU*/
     public static final By REST_API_MENU_LINK = By.linkText("REST API");
+    public static final By ADMIN_MENU_LINK = By.linkText("Admin");
+    public static final By MODULES_MENU_LINK = By.linkText("Modules");
+    /**Left side MENU*/
+    public static final By DATA_SERVICES_MENU_LINK = By.id("modulelink_data-services");
+    public static final By COMMCARE_MENU_LINK = By.id("modulelink_commcare");
+    public static final By MANAGE_MODULES_MENU_LINK = By.id("modulelink_admin");
+    /**Inside modules*/
     public static final By BLOCK_UI_DIV = By.className("blockUI");
+    public static final By SELECT_MODULE_DROPDOWN = By.name("moduleId");
+    public static final By INSTALL_OR_UPDATE_BUTTON = By.xpath("//*[@id=\"bundleUploadForm\"]/div/div/div[6]/span");
+    /**Other*/
+    private int sleepDuringInstall = 150000;
 
     public MotechPage(WebDriver driver) {
         super(driver);
@@ -31,7 +45,13 @@ public class MotechPage extends AbstractBasePage {
         return new RestApiPage(getDriver());
     }
 
+    public CommcarePage goToCommcare() throws InterruptedException {
+        clickWhenVisible(COMMCARE_MENU_LINK);
+        return new CommcarePage(getDriver());
+    }
+
     public LoginPage logOut() throws InterruptedException {
+        getLogger().debug("Logging Out");
         waitForElementToBeGone(BLOCK_UI_DIV);
         waitForElement(By.cssSelector("span.ng-binding"));
         clickWhenVisible(By.cssSelector("span.ng-binding"));
@@ -42,4 +62,20 @@ public class MotechPage extends AbstractBasePage {
     public void waitUntilBlockUiIsGone() {
         waitForElementToBeGone(BLOCK_UI_DIV);
     }
+    /**
+     * Methods to install modules of MOTECH application
+    **/
+    public MotechPage installModule(String moduleName) throws InterruptedException {
+        clickWhenVisible(ADMIN_MENU_LINK);
+        clickWhenVisible(MANAGE_MODULES_MENU_LINK);
+        Select dropdown = new Select(findElement(SELECT_MODULE_DROPDOWN));
+        dropdown.selectByVisibleText(moduleName);
+        clickWhenVisible(INSTALL_OR_UPDATE_BUTTON);
+        getLogger().debug("Installing module: " + moduleName);
+        sleep(sleepDuringInstall);
+        String newModuleUrl = "http://localhost:8080/motech-platform-server/module/server/#/" + moduleName;
+        getDriver().navigate().to(newModuleUrl);
+        return new MotechPage(getDriver());
+    }
+
 }
