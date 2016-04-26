@@ -29,6 +29,7 @@ public class DataServicesPage extends MotechPage {
     public static final By FIELD_TYPE_BOOLEAN = By.id("field-type-Boolean");
     public static final By CREATE_FIELD_BUTTON = By.id("add-new-field");
     public static final By SAVE_CHANGES_BUTTON = By.id("save-changes-button");
+    public static final String FIELD_TYPE = "field-type-";
 
 
     private static final String HOME_PATH = "/module/server/home#";
@@ -77,9 +78,21 @@ public class DataServicesPage extends MotechPage {
         clickWhenVisible(FIELD_TYPE_DROPDOWN);
         clickWhenVisible(FIELD_TYPE_BOOLEAN);
         clickWhenVisible(CREATE_FIELD_BUTTON);
-        waitUntilBlockUiIsGone();
         clickWhenVisible(SAVE_CHANGES_BUTTON);
         waitUntilBlockUiIsGone();
+    }
+
+    public void addNewField(String type) throws InterruptedException {
+        clickWhenVisible(FIELD_TYPE_DROPDOWN);
+        clickWhenVisible(By.id(FIELD_TYPE + type));
+        findElement(FIELD_DISPLAY_NAME).sendKeys(type);
+        clickWhenVisible(CREATE_FIELD_BUTTON);
+        clickWhenVisible(SAVE_CHANGES_BUTTON);
+        waitUntilBlockUiIsGone();
+    }
+
+    public boolean checkIfSaveChangesButtonIsDisabled() {
+        return findElement(SAVE_CHANGES_BUTTON).isEnabled();
     }
 
     /**
