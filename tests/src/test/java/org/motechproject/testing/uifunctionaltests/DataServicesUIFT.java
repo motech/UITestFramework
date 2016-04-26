@@ -31,6 +31,7 @@ public class DataServicesUIFT extends TestBase {
         logout();
     }
 
+
     @Test
     public void editEntityTest() throws InterruptedException {
         dataServicesPage.goToEditEntity(EMAIL_RECORD_ENTITY);

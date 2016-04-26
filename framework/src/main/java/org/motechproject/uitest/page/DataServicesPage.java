@@ -100,7 +100,6 @@ public class DataServicesPage extends MotechPage {
         clickWhenVisible(DATA_BROWSER_TAB);
         waitUntilBlockUiIsGone();
         clickWhenVisible(By.id(String.format("entity_%s", entityName)));
-        waitUntilBlockUiIsGone();
         return this;
     }
 
