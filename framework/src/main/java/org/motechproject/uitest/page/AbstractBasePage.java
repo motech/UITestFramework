@@ -180,7 +180,7 @@ public abstract class AbstractBasePage implements Page {
         waiter.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
-    public void waitForElementToBeGone(By by) {
+    public void waitForElementToBeGone(final By by) {
         getLogger().debug("Waiting for element to be gone: {}", by);
         waiter.until(new Predicate<WebDriver>() {
             @Override
