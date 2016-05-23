@@ -20,9 +20,8 @@ public class DataServicesPage extends MotechPage {
     public static final By DATA_BROWSER_TAB = By.id("mdsTab_dataBrowser");
     public static final By BROWSE_INSTANCES_BUTTON = By.id("browseInstancesButton");
     public static final By ADD_NEW_INSTANCE_BUTTON = By.id("addNewInstanceButton");
-    public static final By ENTITY_SPAN = By.id("select2-chosen-2");
+    public static final By ENTITY_SPAN = By.id("select2-chosen-1");
 
-    public static final By DATA_SERVICES_BUTTON = By.id("modulelink_data-services");
     public static final By FIELD_TYPE_DROPDOWN = By.id("new-field-type");
     public static final By FIELD_DISPLAY_NAME = By.id("new-field-displayName-input");
     public static final By FIELD_NAME = By.id("new-field-name-input");
@@ -43,7 +42,7 @@ public class DataServicesPage extends MotechPage {
      * @return method returns text that appears in schema editor entity input after creating new entity, should be the same as new entity name, should be checked in tests
      */
     public DataServicesPage createNewEntity(String entityName) throws InterruptedException {
-        waitUntilBlockUiIsGone();
+        waitUntilDialogIsGone();
         clickWhenVisible(SCHEMA_EDITOR_TAB);
         clickWhenVisible(NEW_ENTITY_BUTTON);
         waitForElement(ENTITY_NAME_FIELD);
@@ -58,11 +57,11 @@ public class DataServicesPage extends MotechPage {
      * @param entityName name of the entity we want to edit
      */
     public DataServicesPage goToEditEntity(String entityName) throws InterruptedException {
-        waitUntilBlockUiIsGone();
+        waitUntilDialogIsGone();
         clickWhenVisible(DATA_BROWSER_TAB);
-        waitUntilBlockUiIsGone();
+        waitUntilDialogIsGone();
         clickWhenVisible(By.id(String.format("edit_%s", entityName)));
-        waitUntilBlockUiIsGone();
+        waitUntilDialogIsGone();
         return this;
     }
 
@@ -77,9 +76,9 @@ public class DataServicesPage extends MotechPage {
         clickWhenVisible(FIELD_TYPE_DROPDOWN);
         clickWhenVisible(FIELD_TYPE_BOOLEAN);
         clickWhenVisible(CREATE_FIELD_BUTTON);
-        waitUntilBlockUiIsGone();
+        waitUntilDialogIsGone();
         clickWhenVisible(SAVE_CHANGES_BUTTON);
-        waitUntilBlockUiIsGone();
+        waitUntilDialogIsGone();
     }
 
     /**
@@ -96,11 +95,11 @@ public class DataServicesPage extends MotechPage {
      * @param entityName name of entity table that we want to enter
      */
     public DataServicesPage goToEntityTable(String entityName) throws InterruptedException {
-        waitUntilBlockUiIsGone();
+        waitUntilDialogIsGone();
         clickWhenVisible(DATA_BROWSER_TAB);
-        waitUntilBlockUiIsGone();
+        waitUntilDialogIsGone();
         clickWhenVisible(By.id(String.format("entity_%s", entityName)));
-        waitUntilBlockUiIsGone();
+        waitUntilDialogIsGone();
         return this;
     }
 

@@ -8,9 +8,9 @@ import org.openqa.selenium.WebDriver;
  */
 public class MotechPage extends AbstractBasePage {
 
-    public static final By DATA_SERVICES_MENU_LINK = By.id("modulelink_data-services");
+    public static final By DATA_SERVICES_MENU_LINK = By.id("module-nav-mds-dataBrowser");
     public static final By REST_API_MENU_LINK = By.linkText("REST API");
-    public static final By BLOCK_UI_DIV = By.className("blockUI");
+    public static final By DIALOG_DIV = By.className("bootstrap-dialog");
 
     public MotechPage(WebDriver driver) {
         super(driver);
@@ -32,14 +32,14 @@ public class MotechPage extends AbstractBasePage {
     }
 
     public LoginPage logOut() throws InterruptedException {
-        waitForElementToBeGone(BLOCK_UI_DIV);
+        waitForElementToBeGone(DIALOG_DIV);
         waitForElement(By.cssSelector("span.ng-binding"));
         clickWhenVisible(By.cssSelector("span.ng-binding"));
         clickOn(By.xpath("//a[@href='j_spring_security_logout']"));
         return new LoginPage(getDriver());
     }
 
-    public void waitUntilBlockUiIsGone() {
-        waitForElementToBeGone(BLOCK_UI_DIV);
+    public void waitUntilDialogIsGone() {
+        waitForElementToBeGone(DIALOG_DIV);
     }
 }

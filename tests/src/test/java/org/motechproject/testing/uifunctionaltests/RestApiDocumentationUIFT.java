@@ -29,8 +29,8 @@ public class RestApiDocumentationUIFT extends TestBase {
     @Test
     public void shouldOpenRestApiDocumentation() throws InterruptedException {
         restApiPage.openDataServicsApi();
-        assertEquals(MDS_REST_API_TITLE,restApiPage.getApiDocumentationTitle());
-        assertEquals(DOCUMENTATION_URL,restApiPage.getDocumentationLink());
+        assertEquals(MDS_REST_API_TITLE, restApiPage.getApiDocumentationTitle());
+        assertEquals(DOCUMENTATION_URL, restApiPage.getDocumentationLink());
     }
 
 }
