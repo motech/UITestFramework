@@ -10,10 +10,6 @@
         </layout>
     </appender>
 
-    <logger name="org.motechproject.testing">
-        <level value="DEBUG"/>
-    </logger>
-
     <logger name="org.motechproject.uitest">
         <level value="DEBUG"/>
     </logger>

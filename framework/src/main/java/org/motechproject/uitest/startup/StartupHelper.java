@@ -15,6 +15,9 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.motechproject.testing.utils.PollingHttpClient;
+import org.motechproject.uitest.page.TestProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,10 +29,11 @@ import static org.junit.Assert.assertNotNull;
 
 public class StartupHelper {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(StartupHelper.class);
+
     private static final PollingHttpClient HTTP_CLIENT;
     private static final String HOST = "localhost";
     private static final String MOTECH = "motech";
-    private static final int PORT = 8080;
     private static final long ONE_MINUTE = 60 * 1000L;
     private static final int WAIT_PERIOD = 120; //seconds
     private static final int MAX_RETRIES = 20;
@@ -40,13 +44,16 @@ public class StartupHelper {
     }
 
     public void startUp() throws IOException, InterruptedException {
+        LOGGER.info("Waiting for start up");
         waitForTomcat();
         createAdminUser();
         login();
         waitForBundles();
+        LOGGER.info("Startup completed");
     }
 
     public void waitForBundles() throws IOException, InterruptedException {
+        LOGGER.info("Waiting for bundles. Server url {}", TestProperties.instance().getServerUrl());
 
         JSONArray bundles = null;
 
@@ -76,7 +83,7 @@ public class StartupHelper {
     }
 
     protected void login() throws IOException, InterruptedException {
-        String uri = String.format("http://%s:%d/motech-platform-server/module/server/motech-platform-server/j_spring_security_check", HOST, PORT);
+        String uri = String.format("http://%s:%d/motech-platform-server/module/server/motech-platform-server/j_spring_security_check", HOST, getHttpPort());
 
         final HttpPost loginPost = new HttpPost(uri);
 
@@ -91,7 +98,7 @@ public class StartupHelper {
     }
 
     protected void createAdminUser() throws IOException, InterruptedException {
-        String url = String.format("http://%s:%d/motech-platform-server/module/server/startup", HOST, PORT);
+        String url = String.format("http://%s:%d/motech-platform-server/module/server/startup", HOST, getHttpPort());
         String json = "{\"language\":\"en\", \"adminLogin\":\"motech\", \"adminPassword\":\"motech\", \"adminConfirmPassword\": \"motech\", \"adminEmail\":\"motech@motech.com\", \"loginMode\":\"repository\"}";
 
         StringEntity entity = new StringEntity(json, HTTP.UTF_8);
@@ -105,14 +112,15 @@ public class StartupHelper {
     }
 
     protected void waitForTomcat() throws IOException, InterruptedException {
-        String uri = String.format("http://%s:%d/motech-platform-server/module/server", HOST, PORT);
+        LOGGER.info("Waiting for Tomcat. Server url {}", TestProperties.instance().getServerUrl());
+        String uri = String.format("http://%s:%d/motech-platform-server/module/server", HOST, getHttpPort());
         HttpGet waitGet = new HttpGet(uri);
         HTTP_CLIENT.execute(waitGet);
     }
 
     private JSONArray getBundleStatusFromServer(PollingHttpClient httpClient) throws IOException, InterruptedException {
 
-        String uri = String.format("http://%s:%d/motech-platform-server/module/admin/api/bundles", HOST, PORT);
+        String uri = String.format("http://%s:%d/motech-platform-server/module/admin/api/bundles", HOST, getHttpPort());
         String response = httpClient.execute(new HttpGet(uri), new BasicResponseHandler());
 
         assertNotNull(response, "Unable to retrieve bundle status from server");
@@ -150,4 +158,7 @@ public class StartupHelper {
         }
     }
 
+    private int getHttpPort() {
+        return TestProperties.instance().getHttpPort();
+    }
 }

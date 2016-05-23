@@ -14,7 +14,11 @@ public class TestProperties {
 
     public static final String SERVER_URL_PROPERTY = "server.url";
 
-    public static final String DEFAULT_SERVER_URL = "http://localhost:8080";
+    public static final String SERVER_PORT_PROPERTY = "http.port";
+
+    public static final int DEFAULT_SERVER_PORT = 8080;
+
+    public static final String DEFAULT_SERVER_URL = "http://localhost:${http_port}";
 
     public static final String CONTEXT_PATH_PROPERTY = "context_path";
 
@@ -58,7 +62,8 @@ public class TestProperties {
     }
 
     public String getServerUrl() {
-        return getProperty(SERVER_URL_PROPERTY, DEFAULT_SERVER_URL);
+        String serverUrl = getProperty(SERVER_URL_PROPERTY, DEFAULT_SERVER_URL);
+        return serverUrl.replace("${http_port}", String.valueOf(getHttpPort()));
     }
 
     public String getUserName() {
@@ -67,6 +72,10 @@ public class TestProperties {
 
     public String getPassword() {
         return getProperty(LOGIN_PASSWORD_PROPERTY, DEFAULT_PASSWORD);
+    }
+
+    public int getHttpPort() {
+        return Integer.parseInt(getProperty(SERVER_PORT_PROPERTY, String.valueOf(DEFAULT_SERVER_PORT)));
     }
 
     public enum WebDriverType {

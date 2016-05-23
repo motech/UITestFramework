@@ -170,8 +170,8 @@
                         <artifactId>maven-t7-plugin</artifactId>
                         <version>0.9.16</version>
                         <configuration>
-                            <tomcatHttpPort>8080</tomcatHttpPort>
-                            <tomcatShutdownPort>8009</tomcatShutdownPort>
+                            <tomcatHttpPort>${http.port}</tomcatHttpPort>
+                            <tomcatShutdownPort>${shutdown.port}</tomcatShutdownPort>
                             <tomcatShutdownCommand>SHUTDOWN</tomcatShutdownCommand>
                             <tomcatSetAwait>false</tomcatSetAwait>
                             <tomcatVersion>7.0.63</tomcatVersion>

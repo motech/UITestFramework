@@ -59,9 +59,7 @@ public class TestBase {
     public static void startWebDriver() throws InterruptedException, IOException {
         driver = setupChromeDriver();
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-        if (getServerUrl().equals(TestProperties.DEFAULT_SERVER_URL)) {
-            new StartupHelper().startUp();
-        }
+        new StartupHelper().startUp();
     }
 
     @AfterClass
