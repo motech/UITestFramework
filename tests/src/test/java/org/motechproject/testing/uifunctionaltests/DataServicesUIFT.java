@@ -40,11 +40,17 @@ public class DataServicesUIFT extends TestBase {
     }
 
     @Test
-    public void newEntityTest () throws Exception {
+    public void newEntityTest() throws Exception {
         dataServicesPage.createNewEntity(ENTITY_NAME);
-
         assertEquals(ENTITY_NAME, dataServicesPage.getChosenEntityName());
-       
         dataServicesPage.goToEntityTable(ENTITY_NAME);
+    }
+    /**MOTECH-2371*/
+    @Test
+    public void shouldCheckFieldNameOfNewInstance() throws InterruptedException {
+        dataServicesPage.createNewEntity(ENTITY_NAME);
+        dataServicesPage.addNewField("Character");
+        assertEquals(false , dataServicesPage.checkIfSaveChangesButtonIsDisabled());
+
     }
 }
