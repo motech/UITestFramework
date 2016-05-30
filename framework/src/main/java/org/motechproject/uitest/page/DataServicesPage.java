@@ -49,6 +49,7 @@ public class DataServicesPage extends MotechPage {
         waitForElement(ENTITY_NAME_FIELD);
         setTextToFieldNoEnter(ENTITY_NAME_FIELD, entityName);
         clickWhenVisible(SAVE_ENTITY_BUTTON);
+        waitUntilDialogIsGone();
         waitForElement(BROWSE_INSTANCES_BUTTON);
         return this;
     }
