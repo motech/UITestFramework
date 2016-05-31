@@ -22,7 +22,7 @@ public class TestProperties {
 
     public static final String CONTEXT_PATH_PROPERTY = "context_path";
 
-    public static final String DEFAULT_CONTEXT_PATH = "/motech-platform-server";
+    public static final String DEFAULT_CONTEXT_PATH = "";
 
     public static final String WEBDRIVER_PROPERTY = "webdriver";
 

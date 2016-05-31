@@ -180,7 +180,7 @@ public abstract class AbstractBasePage implements Page {
         waiter.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
-    public void waitForElementToBeGone(By by) {
+    public void waitForElementToBeGone(final By by) {
         getLogger().debug("Waiting for element to be gone: {}", by);
         waiter.until(new Predicate<WebDriver>() {
             @Override
@@ -223,11 +223,25 @@ public abstract class AbstractBasePage implements Page {
         return driver.getPageSource().contains(text);
     }
 
-    public void clickWhenVisible(By by) throws InterruptedException {
+    public void clickWhenClickable(By by) throws InterruptedException {
         getLogger().debug("Waiting until element is clickable: {}", by);
         waiter.until(ExpectedConditions.elementToBeClickable(by));
         clickOn(by);
     }
+
+    public void clickWhenVisible(By by) throws InterruptedException {
+        Long startTime = System.currentTimeMillis();
+        while((System.currentTimeMillis() - startTime) < 10000) {
+            try {
+                clickOn(by);
+                break;
+            } catch (Exception e) {
+                Thread.sleep(500);
+            }
+        }
+
+    }
+
 
     protected TestProperties getProperties() {
         return properties;
