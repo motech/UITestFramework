@@ -74,7 +74,6 @@ public class TestBase {
     @Before
     public void initLoginPage() {
         loginPage = new LoginPage(getDriver());
-        login();
     }
 
     public MotechPage login() {
