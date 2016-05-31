@@ -11,6 +11,8 @@ public class MotechPage extends AbstractBasePage {
     public static final By DATA_SERVICES_MENU_LINK = By.id("module-nav-mds-dataBrowser");
     public static final By REST_API_MENU_LINK = By.linkText("REST API");
     public static final By DIALOG_DIV = By.className("bootstrap-dialog");
+    public static final By USER_INTERFACE_DROPDOWN = By.id("profile-user-name");
+    public static final By LOGOUT_BUTTON = By.id("profile-user-logout");
 
     public MotechPage(WebDriver driver) {
         super(driver);
@@ -31,11 +33,15 @@ public class MotechPage extends AbstractBasePage {
         return new RestApiPage(getDriver());
     }
 
+    public boolean checkIfDataServicesModuleIsVisible() {
+        return findElement(DATA_SERVICES_MENU_LINK).isDisplayed();
+    }
+
     public LoginPage logOut() throws InterruptedException {
         waitForElementToBeGone(DIALOG_DIV);
-        waitForElement(By.cssSelector("span.ng-binding"));
-        clickWhenVisible(By.cssSelector("span.ng-binding"));
-        clickOn(By.xpath("//a[@href='j_spring_security_logout']"));
+        waitForElement(USER_INTERFACE_DROPDOWN);
+        clickWhenVisible(USER_INTERFACE_DROPDOWN);
+        clickWhenVisible(LOGOUT_BUTTON);
         return new LoginPage(getDriver());
     }
 
