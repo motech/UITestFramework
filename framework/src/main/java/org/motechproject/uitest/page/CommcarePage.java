@@ -10,8 +10,8 @@ import org.openqa.selenium.WebDriver;
 public class CommcarePage extends MotechPage {
 
     private static final String HOME_PATH = "/module/server/home#";
-    public static final By ADD_CONFIGURATION_BUTTON = By.cssSelector("#main-content > div > div > div > div.btn-group.form-group > a");
-    public static final By SAVE_CONFIGURATION_BUTTON = By.cssSelector("#main-content > div > div > div > div.btn-group.form-group > a.btn.btn-primary.ng-binding.ng-scope");
+    public static final By ADD_CONFIGURATION_BUTTON = By.xpath("(//a[@ng-click='addConfig()'])");
+    public static final By SAVE_CONFIGURATION_BUTTON = By.xpath("(//a[@ng-click='saveAllowed() && saveConfig()'])");
 
     public CommcarePage(WebDriver driver) {
         super(driver);

@@ -30,7 +30,7 @@ public class CommcareUIFT extends TestBase {
     //MOTECH 2181
     @Test
     public void shouldCheckIfSaveButtonIsDisabledWithoutConfiguration() throws InterruptedException {
-        assertEquals(true,commcarePage.checkIfAddConfigurationButtonIsVisible());
+        assertEquals(true, commcarePage.checkIfAddConfigurationButtonIsVisible());
         commcarePage.createNewConfiguration();
         assertEquals(false, commcarePage.checkIfSaveButtonIsDisabled());
     }
