@@ -23,7 +23,7 @@ public class LogInUIFT extends TestBase {
     @Test
     public void shouldCheckIfRetryLoginPageWork() throws InterruptedException {
         loginPage = motechPage.logOut();
-        loginPage.loginWithWrongPassword("Motech", "WrongPassword");
+        loginPage = loginPage.loginWithWrongPassword("Motech", "WrongPassword");
         assertEquals(true, loginPage.checkIfStatementForWrongPasswordAppears());
         MotechPage home = login();
         assertEquals(true, home.checkIfDataServicesModuleIsVisible());
