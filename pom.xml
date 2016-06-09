@@ -17,6 +17,10 @@
         <motech.version>0.27.5</motech.version>
         <motech.dir>${user.home}/.motech</motech.dir>
         <motech.sql.dbtype>mysql</motech.sql.dbtype>
+
+        <scm.connection>scm:git:https://github.com/motech/UITestFramework</scm.connection>
+        <scm.developerConnection>scm:git:https://github.com/motech/UITestFramework</scm.developerConnection>
+        <scm.url>https://github.com/motech/UITestFramework</scm.url>
     </properties>
 
     <parent>
