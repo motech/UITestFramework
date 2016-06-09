@@ -23,6 +23,12 @@
         <scm.url>https://github.com/motech/UITestFramework</scm.url>
     </properties>
 
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+    </scm>
+
     <parent>
         <groupId>org.motechproject</groupId>
         <artifactId>motech</artifactId>
