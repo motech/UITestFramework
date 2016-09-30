@@ -14,7 +14,7 @@
     </modules>
 
     <properties>
-        <motech.version>0.29-SNAPSHOT</motech.version>
+        <motech.version>0.30-SNAPSHOT</motech.version>
         <motech.dir>${user.home}/.motech</motech.dir>
         <motech.sql.dbtype>mysql</motech.sql.dbtype>
 
@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.motechproject</groupId>
         <artifactId>motech</artifactId>
-        <version>0.29-SNAPSHOT</version>
+        <version>0.30-SNAPSHOT</version>
     </parent>
 
     <build>
